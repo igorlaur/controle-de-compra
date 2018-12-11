@@ -18,7 +18,7 @@ function setList(list){
     var table = '<thead><tr><td>Description</td><td>Amount</td><td>Value</td><td>Action</td></tr></thead><tbody>';
     // Percorrer a lista
     for(var key in list){
-        table += '<tr><td>'+ formatDesc(list[key].desc) +'</td><td>'+ list[key].amount +'</td><td>'+ formatValue(list[key].value) +'</td><td>Edit | Delete</td></tr>';
+        table += '<tr><td>'+ formatDesc(list[key].desc) +'</td><td>'+ list[key].amount +'</td><td>'+ formatValue(list[key].value) +'</td><td><button class="btn btn-default" onclick="setUpdate('+key+');" >Edit</button> Delete</td></tr>';
     }
     table += '</tbody>';
     document.getElementById("listTable").innerHTML = table;
@@ -26,7 +26,7 @@ function setList(list){
 
 function formatDesc(desc){
     var str = desc.toLowerCase(); // Tratando texto para minúsculo
-    str = str.charArt(0).toUpperCase() + str.slice(1); // Primeiro caracter da string // Deixa-lo maiúsculo // Concatenar com restante
+    str = str.charAt(0).toUpperCase() + str.slice(1); // Primeiro caracter da string // Deixa-lo maiúsculo // Concatenar com restante
     return str;
 }
 
@@ -43,8 +43,33 @@ function addData(){
     var value = document.getElementById("value").value;
 
     list.unshift({"desc":desc , "amount":amount , "value":value});
-    setList(list); // clica botão e acrescenta novos dados na tabela no html
+}
+    
+function setUpdate(id){
+    var obj = list[id];
+    document.getElementById("desc").value = obj.desc;
+    document.getElementById("amount").value = obj.amount;
+    document.getElementById("value").value = obj.value;
+    document.getElementById("btnUpdate").style.display = "inline-block";
+    document.getElementById("btnAdd").style.display = "none";
+
+    document.getElementById("inputIDUpdate").innerHTML = '<input id="idUpdate" type="hidden" value="'+id+'">';
 }
 
-setList(list);
+function updateData(){
+    var id = document.getElementById("idUpdate").value;
+    var desc = document.getElementById("desc").value;
+    var amount = document.getElementById("amount").value;
+    var value = document.getElementById("value").value;
+
+    list[id] = {"desc":desc, "amount": amount, "value":value };
+    resetForm();
+    setList(list);
+
+}
+
+
+// Atualizar os dados
+setList(list); // clica botão e acrescenta novos dados na tabela no html
 console.log(getTotal(list));
+    
