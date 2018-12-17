@@ -24,7 +24,7 @@ function setList(list){
     table += '</tbody>';
     document.getElementById("listTable").innerHTML = table;
     getTotal(list);
-    saveListStorage(list);
+    saveListStorage(list); // Salvando setList em nosso local storage
 }
 
 // Formatando letras
@@ -157,14 +157,14 @@ function deleteList(){
 }
 
 function saveListStorage(list){
-    var jsonStr = JSON.stringify(list);
-    localStorage.setItem("list",jsonStr);
+    var jsonStr = JSON.stringify(list); // stringify transforma array em string formato json para que possamos salvar no local storage pois só aceita string
+    localStorage.setItem("list",jsonStr); // salvando
 }
 
 function initListStorage(){
-    var testList = localStorage.getItem("list");
-    if(testList){
-        list = JSON.parse(testList);
+    var testList = localStorage.getItem("list"); // verificar se nossa lista existe para salvar no local storage, se nao existir ficará como null
+    if(testList){ // se for válido
+        list = JSON.parse(testList); // transformar de string para objeto/array novamente
     }
     // Atualizar dados
     setList(list); // Clica no botão e acrescenta novos dados na tabela HTML
