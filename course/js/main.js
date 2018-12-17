@@ -12,7 +12,7 @@ function getTotal(list){
     for(var key in list){ // Percorre até o final
         total += list[key].value * list[key].amount; // total = variável acumulavel.    lista * valor
     }
-    document.getElementById("totalValue").innerHTML = formatValue(total);
+    document.getElementById("totalValue").innerHTML = formatValue(total); // Alterar de 0 para valor real
 }
 
 function setList(list){
@@ -70,7 +70,7 @@ function setUpdate(id){
     document.getElementById("inputIDUpdate").innerHTML = '<input id="idUpdate" type="hidden" value="'+id+'">';
 }
 
-// Resetando
+// Resetando dados
 function resetForm(){
     document.getElementById("desc").value = "";
     document.getElementById("amount").value = "";
@@ -151,8 +151,8 @@ function validation(){
 // Deletar lista
 function deleteList(){
     if(confirm("Delete this list?")){
-        list = [];
-        setList(list);
+        list = []; // array de lista vazio
+        setList(list); // setamos a lista com minha lista
     }
 }
 
